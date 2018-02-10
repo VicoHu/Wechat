@@ -19,6 +19,10 @@ A1 = Friends[0].keys()
 A2 = Friends[0].values()
 B1 = Friends[1].keys()
 B2 = Friends[1].values()
+A1 = [ str(i) for i in A1 ]
+A2 = [ str(i) for i in A2 ]
+B1 = [ str(i) for i in B1 ]
+B2 = [ str(i) for i in B2 ]
 N = 0
 for a in list(A1):
     if N == 0:
@@ -32,7 +36,7 @@ for a in list(A2):
     if N == 0:
         N = N + 1
         continue
-    fp.write(a)                    #write() argument must be str, not int
+    fp.write(a)                    
     fp.write(",")
 fp.write("\n")
 N = 0
