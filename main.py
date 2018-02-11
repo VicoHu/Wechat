@@ -128,7 +128,7 @@ class FriendsInfo():
             fp.write("\n")
         fp.close()
 
-friends_info = FriendsInfo("E:\\", "wt", "MyFriendsList.csv", Friends)
+friends_info = FriendsInfo("E:\\ItchatData\\", "wt", "MyFriendsList.csv", Friends)
 friends_info.assign_mothod()
 friends_info.writer()
 
