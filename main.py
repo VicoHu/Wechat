@@ -7,11 +7,13 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import jieba
 import re
-import WordCloud
+import time
+# import WordCloud
 import numpy as np
 import PIL.Image as Image
 
 itchat.auto_login()         #enableCmdQR=2
+time_start = time.time()    #time.time()为1970.1.1到当前时间的毫秒数
 Friends = itchat.get_friends()
 
 class FriendsInfo():
@@ -146,25 +148,34 @@ print('男性比例：%2f%%' % (float(male) / total * 100))
 print('女性比例：%2f%%' % (float(female) / total * 100))
 print('未知性别：%2f%%' % (float(other) / total * 100))
 
-arr = ['1'] * male  # 男性
-arr1 = ['2']*female # 女性
-arr2 = ['0'] * other    #未知
-arr.extend(arr1)
-arr.extend(arr2)
-plt.hist(arr)
-plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_bar.png') #绘制性别条形统计图，并保存
+# plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
+# arr = ['1'] * male  # 男性
+# arr1 = ['2']*female # 女性
+# arr2 = ['0'] * other    #未知
+# arr.extend(arr1)
+# arr.extend(arr2)
+# plt.hist(arr)
+# plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_bar.png') #绘制性别条形统计图，并保存
+# plt.show()
+# print("绘制性别条形统计图完成，已保存")
 
-labels = [u'男性', u'女性', u'未知']
+plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
+labels = ['男性', '女性', '未知']
 sizes = []
 sizes.append(float(male) / total * 100)
 sizes.append(float(female) / total * 100)
 sizes.append(float(other) / total * 100)
 colors = ['yellowgreen', 'gold', 'lightskyblue']
-explode = (0, 0, 0, 0) 
-plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.1f%%', shadow=True, startangle=90) 
+explode = (0, 0, 0) 
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.4f%%', shadow=True, startangle=90) 
 # Set aspect ratio to be equal so that pie is drawn as a circle.
-plt.axis('equal') 
-plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_pie.png') ##绘制性别条形统计图，并保存
+# plt.axis('equal') 
+plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_pie.png') ##绘制性别统计图，并保存
+# plt.show()
+plt.ion()
+plt.pause(1)  #显示秒数
+plt.close()
+print("绘制性别饼图完成，已保存")
 
 data = pd.DataFrame(friends)
 df_friends = data
@@ -179,24 +190,31 @@ plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中�
 plt.bar(data['Province'].value_counts().index,data['Province'].value_counts())  # 选择柱状图，而不是直方图。
 plt.xticks(rotation=90)     # 横坐标旋转90度
 plt.savefig('E:\\ItchatData\\' + friends_info.MyName + 'City_bar.png') ##绘制城市分布情况条形统计图，并保存
+# plt.show()
+plt.ion()
+plt.pause(1)  #显示秒数
+plt.close()
+print("绘制城市分布情况条形统计图完成，已保存")
+
+# Signatures = df_friends.Signature
+# regex1 = re.compile('<span.*?</span>') #匹配表情
+# regex2 = re.compile('\s{2,}') #匹配两个以上占位符
+# Signatures = [regex2.sub(' ',regex1.sub('',signature,re.S)) for signature in Signatures] #用一个空格替换表情和多个空格。
+# Signatures = [signature for signature in Signatures if len(signature)>0] #去除空字符串
+# text = ' '.join(Signatures)
+# file_name = NickName +'_wechat_signatures.txt'
+# with open(file_name,'w',encoding='utf-8') as f:
+#     f.write(text)
+#     f.close()
+# wordlist = jieba.cut(text, cut_all=True)
+# word_space_split = ' '.join(wordlist)
+# coloring = np.array(Image.open('E:\\ItchatData\\' + friends_info.MyName + '_WordCloud.png')) #词云的背景和颜色。这张图片在本地。
+# my_wordcloud = WordCloud(background_color="white", max_words=2000,mask=coloring, max_font_size=60, random_state=42, scale=2,font_path="C:\Windows\Fonts\msyhl.ttc").generate(word_space_split) #生成词云。font_path="C:\Windows\Fonts\msyhl.ttc"指定字体，有些字不能解析中文，这种情况下会出现乱码。
+# my_wordcloud.to_file('E:\\ItchatData\\' + friends_info.MyName + '_WordCloud.png') #保存图片
 
 
-Signatures = df_friends.Signature
-regex1 = re.compile('<span.*?</span>') #匹配表情
-regex2 = re.compile('\s{2,}') #匹配两个以上占位符
-Signatures = [regex2.sub(' ',regex1.sub('',signature,re.S)) for signature in Signatures] #用一个空格替换表情和多个空格。
-Signatures = [signature for signature in Signatures if len(signature)>0] #去除空字符串
-text = ' '.join(Signatures)
-file_name = NickName +'_wechat_signatures.txt'
-with open(file_name,'w',encoding='utf-8') as f:
-    f.write(text)
-    f.close()
-wordlist = jieba.cut(text, cut_all=True)
-word_space_split = ' '.join(wordlist)
-coloring = np.array(Image.open('E:\\ItchatData\\' + friends_info.MyName + '_WordCloud.png')) #词云的背景和颜色。这张图片在本地。
-my_wordcloud = WordCloud(background_color="white", max_words=2000,mask=coloring, max_font_size=60, random_state=42, scale=2,font_path="C:\Windows\Fonts\msyhl.ttc").generate(word_space_split) #生成词云。font_path="C:\Windows\Fonts\msyhl.ttc"指定字体，有些字不能解析中文，这种情况下会出现乱码。
-my_wordcloud.to_file('E:\\ItchatData\\' + friends_info.MyName + '_WordCloud.png') #保存图片
-
-
-
+time_end=time.time()
+print("总共耗时：") 
+print(time_end - time_start) 
+print("秒")
 itchat.logout()
