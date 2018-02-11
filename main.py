@@ -29,6 +29,7 @@ class FriendsInfo():
         self.friends_list = friends_list
         self.friends_keys = []
         self.friends_values = []
+        self.MyName = ""
 
     def reduction(self):
         count = 0
@@ -39,23 +40,21 @@ class FriendsInfo():
         return friends_dic
 
     def friends_dic_keys(self,friends_dic):
-        count = 1
         friends_dic_keys = []
         for madia in friends_dic:
-            if count == 1:
-                count = count + 1
-                continue
+            # if count == 1:
+            #     count = count + 1
+            #     continue
             friends_dic_keys.append(madia.keys())
         # friends_dic_keys = [ str(i) for i in friends_dic_keys]         #
         return friends_dic_keys
 
     def friends_dic_values(self,friends_dic):
-        count = 1
         friends_dic_values = []
         for madia in friends_dic:
-            if count == 1:
-                count = count + 1
-                continue
+            # if count == 1:
+            #     count = count + 1
+            #     continue
             friends_dic_values.append(madia.values())
         # friends_dic_values = [ str(i) for i in friends_dic_values ]     #
         return friends_dic_values
@@ -67,18 +66,35 @@ class FriendsInfo():
         self.friends_values = self.friends_dic_values(friends_dic)
     
     def writer(self):
-        location = self.file_location + self.file_name
-        fp = open(location, self.file_write_mothod)
-        for a in self.friends_keys[0]:                #check
+        Friends_ForName = itchat.search_friends()
+        self.MyName = Friends_ForName['NickName']
+        location = self.file_location + self.MyName + "_" + self.file_name
+        fp = open(location,self.file_write_mothod)
+        count = 0
+        for a in self.friends_keys[0]:
+            if count == 0:
+                count = count + 1
+                continue                
             fp.write(a)
             fp.write(",")
         fp.write("\n")
+        count = 0
         for a in self.friends_values[0]:
+            if count == 0:
+                count = count + 1
+                continue
             a = str(a)
             fp.write(a)
             fp.write(",")
         fp.write("\n")
+        count = 0
         for a in self.friends_keys[1]:
+            if count == 0:
+                count = count + 1
+                continue
+            if count == 1:
+                count = count + 1
+                continue
             a = str(a)
             fp.write(a)
             fp.write(",")
@@ -89,7 +105,14 @@ class FriendsInfo():
             if count == 0:
                 count = count + 1
                 continue
+            count = 0
             for a in madia:
+                if count == 0:
+                    count = count + 1
+                    continue
+                if count == 1:
+                    count = count + 1
+                    continue
                 try:
                     a = str(a)
                     fp.write(a)     #UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f4a1' in position 105: illegal multibyte sequen
