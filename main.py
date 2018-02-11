@@ -1,6 +1,6 @@
 #Anthor:Blakcduty
 #Data:2018/2/2 night
-
+#coding:utf-8
 
 import itchat
 
@@ -46,8 +46,8 @@ class FriendsInfo():
                 count = count + 1
                 continue
             friends_dic_keys.append(madia.keys())
-        friends_dic_keys = [ str(i) for i in friends_dic_keys ]
-        return friends_dic_keys
+        friends_dic_keys = [ str(i) for i in friends_dic_keys]
+        return list(friends_dic_keys)
 
     def friends_dic_values(self,friends_dic):
         count = 1
@@ -58,7 +58,7 @@ class FriendsInfo():
                 continue
             friends_dic_values.append(madia.values())
         friends_dic_values = [ str(i) for i in friends_dic_values ]
-        return friends_dic_values
+        return list(friends_dic_values)
             
     
     def assign_mothod(self):
@@ -69,15 +69,31 @@ class FriendsInfo():
     def writer(self):
         location = self.file_location + self.file_name
         fp = open(location, self.file_write_mothod)
-        fp.write(self.friends_keys[0] + "\n")
-        fp.write(self.friends_values[0] + "\n")
-        fp.write(self.friends_keys[1] + "\n")
-        count = 1
+        for a in self.friends_keys[0]:
+            fp.write( a + ",")
+        print("\n")
+        for a in self.friends_values[0]:
+            fp.write( a + ",")
+        print("\n")
+        for a in self.friends_keys[1]:
+            fp.write( a + ",")
+        print("\n")
+        
+        count = 0
         for madia in self.friends_values:
-            if count == 1:
+            if count == 0:
                 count = count + 1
                 continue
-            fp.write(madia + "\n")     #UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f4a1' in position 105: illegal multibyte sequen
+            for a in madia:
+                try:
+                    fp.write(a + ",")     #UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f4a1' in position 105: illegal multibyte sequen
+                except UnicodeError:
+                    fp.close()
+                    fp = open(location, self.file_write_mothod, encoding="utf-8")
+                    fp.write(a + ",")
+                    fp.close()
+                    fp = open(location, self.file_write_mothod)
+            fp.write("\n")
         fp.close()
 
 friends_info = FriendsInfo("E:\\", "wt", "MyFriendsList.csv", Friends)
