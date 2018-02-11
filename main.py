@@ -4,16 +4,8 @@
 
 import itchat
 
-# @itchat.msg_register(itchat.content.TEXT)
-# def print_content(msg):
-#     print(msg['Text'])
-
 itchat.auto_login()         #enableCmdQR=2
-# itchat.run()
-print("**********")
 Friends = itchat.get_friends()
-# print(Friends)
-print("*********")
 
 class FriendsInfo():
     '''
@@ -42,24 +34,15 @@ class FriendsInfo():
     def friends_dic_keys(self,friends_dic):
         friends_dic_keys = []
         for madia in friends_dic:
-            # if count == 1:
-            #     count = count + 1
-            #     continue
             friends_dic_keys.append(madia.keys())
-        # friends_dic_keys = [ str(i) for i in friends_dic_keys]         #
         return friends_dic_keys
 
     def friends_dic_values(self,friends_dic):
         friends_dic_values = []
         for madia in friends_dic:
-            # if count == 1:
-            #     count = count + 1
-            #     continue
             friends_dic_values.append(madia.values())
-        # friends_dic_values = [ str(i) for i in friends_dic_values ]     #
         return friends_dic_values
-            
-    
+               
     def assign_mothod(self):
         friends_dic = self.reduction()
         self.friends_keys = self.friends_dic_keys(friends_dic)
@@ -115,7 +98,7 @@ class FriendsInfo():
                     continue
                 try:
                     a = str(a)
-                    fp.write(a)     #UnicodeEncodeError: 'gbk' codec can't encode character '\U0001f4a1' in position 105: illegal multibyte sequen
+                    fp.write(a)     
                     fp.write(",")
                 except UnicodeError:
                     fp.close()
@@ -131,50 +114,5 @@ class FriendsInfo():
 friends_info = FriendsInfo("E:\\ItchatData\\", "wt", "MyFriendsList.csv", Friends)
 friends_info.assign_mothod()
 friends_info.writer()
-
-
-
-# fp = open(r"E:\MyFriendsList.csv","wt")
-# A1 = Friends[0].keys()
-# A2 = Friends[0].values()
-# B1 = Friends[1].keys()
-# B2 = Friends[1].values()
-# A1 = [ str(i) for i in A1 ]
-# A2 = [ str(i) for i in A2 ]
-# B1 = [ str(i) for i in B1 ]
-# B2 = [ str(i) for i in B2 ]
-# N = 0
-# for a in list(A1):
-#     if N == 0:
-#         N = N + 1
-#         continue
-#     fp.write(a)
-#     fp.write(",")
-# fp.write("\n")
-# N = 0
-# for a in list(A2):
-#     if N == 0:
-#         N = N + 1
-#         continue
-#     fp.write(a)                    
-#     fp.write(",")
-# fp.write("\n")
-# N = 0
-# for a in list(B1):
-#     if N == 0:
-#         N = N + 1
-#         continue
-#     fp.write(a)
-#     fp.write(",")
-# fp.write("\n")
-# N = 0
-# for a in list(B2):
-#     if N == 0:
-#         N = N + 1
-#         continue
-#     fp.write(a)
-#     fp.write(",")
-# fp.write("\n")
-# fp.close()
 
 itchat.logout()
