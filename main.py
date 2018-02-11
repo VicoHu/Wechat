@@ -125,7 +125,10 @@ class FriendsInfo():
 friends_info = FriendsInfo("E:\\ItchatData\\", "wt", "MyFriendsList.csv", Friends)
 friends_info.assign_mothod()
 friends_info.writer()
-
+print("开始数据搜集及绘图进程：\n")
+print("用户及好友基本信息输出为表格文件完成")
+print(">>>已保存")
+print("\n")
 
 friends = Friends
 NickName = friends[0].NickName
@@ -143,10 +146,10 @@ for i in friends[1:]:
         other += 1
 # 计算好友总数
 total = len(friends[1:])
-print('好友总数：', total)
-print('男性比例：%2f%%' % (float(male) / total * 100))
-print('女性比例：%2f%%' % (float(female) / total * 100))
-print('未知性别：%2f%%' % (float(other) / total * 100))
+# print('好友总数：', total)
+# print('男性比例：%2f%%' % (float(male) / total * 100))
+# print('女性比例：%2f%%' % (float(female) / total * 100))
+# print('未知性别：%2f%%' % (float(other) / total * 100))
 
 # plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
 # arr = ['1'] * male  # 男性
@@ -175,7 +178,9 @@ plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_pie.png') ##绘制�
 plt.ion()
 plt.pause(1)  #显示秒数
 plt.close()
-print("绘制性别饼图完成，已保存")
+print("绘制好友性别饼图完成")
+print(">>>已保存")
+print("\n")
 
 data = pd.DataFrame(friends)
 df_friends = data
@@ -187,15 +192,16 @@ for col in columns:
     data[col] = pd.Series(val)
 
 plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
-plt.bar(data['Province'].value_counts().index,data['Province'].value_counts())  # 选择柱状图，而不是直方图。
+plt.bar(data['City'].value_counts().index,data['City'].value_counts())  # 选择柱状图，而不是直方图。
 plt.xticks(rotation=90)     # 横坐标旋转90度
 plt.savefig('E:\\ItchatData\\' + friends_info.MyName + 'City_bar.png') ##绘制城市分布情况条形统计图，并保存
 # plt.show()
 plt.ion()
 plt.pause(1)  #显示秒数
 plt.close()
-print("绘制城市分布情况条形统计图完成，已保存")
-
+print("绘制好友城市分布情况条形统计图完成")
+print(">>>已保存")
+print("\n")
 # Signatures = df_friends.Signature
 # regex1 = re.compile('<span.*?</span>') #匹配表情
 # regex2 = re.compile('\s{2,}') #匹配两个以上占位符
