@@ -169,7 +169,7 @@ sizes.append(float(female) / total * 100)
 sizes.append(float(other) / total * 100)
 colors = ['yellowgreen', 'gold', 'lightskyblue']
 explode = (0, 0, 0) 
-plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.4f%%', shadow=False, startangle=0) 
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.4f%%', shadow=False, startangle=90) 
 # Set aspect ratio to be equal so that pie is drawn as a circle.
 # plt.axis('equal') 
 plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_pie.png') ##绘制性别统计图，并保存
