@@ -125,10 +125,9 @@ class FriendsInfo():
 friends_info = FriendsInfo("E:\\ItchatData\\", "wt", "MyFriendsList.csv", Friends)
 friends_info.assign_mothod()
 friends_info.writer()
-print("开始数据搜集及绘图进程：\n")
+print("\n开始数据搜集及绘图进程：")
 print("用户及好友基本信息输出为表格文件完成")
 print(">>>已保存")
-print("\n")
 
 friends = Friends
 NickName = friends[0].NickName
@@ -162,7 +161,7 @@ total = len(friends[1:])
 # plt.show()
 # print("绘制性别条形统计图完成，已保存")
 
-plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
+plt.rcParams['font.sans-serif']=['SimHei']
 labels = ['男性', '女性', '未知']
 sizes = []
 sizes.append(float(male) / total * 100)
@@ -170,17 +169,15 @@ sizes.append(float(female) / total * 100)
 sizes.append(float(other) / total * 100)
 colors = ['yellowgreen', 'gold', 'lightskyblue']
 explode = (0, 0, 0) 
-plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.4f%%', shadow=True, startangle=90) 
+plt.pie(sizes, explode=explode, labels=labels, colors=colors, autopct='%1.4f%%', shadow=False, startangle=0) 
 # Set aspect ratio to be equal so that pie is drawn as a circle.
 # plt.axis('equal') 
 plt.savefig('E:\\ItchatData\\' + friends_info.MyName + '_Sex_pie.png') ##绘制性别统计图，并保存
-# plt.show()
 plt.ion()
-plt.pause(1)  #显示秒数
+plt.pause(1)  
 plt.close()
 print("绘制好友性别饼图完成")
 print(">>>已保存")
-print("\n")
 
 data = pd.DataFrame(friends)
 df_friends = data
@@ -190,18 +187,16 @@ for col in columns:
     for i in friends[1:]:
         val.append(i[col])
     data[col] = pd.Series(val)
-
-plt.rcParams['font.sans-serif']=['SimHei']    # 如果不设置这一句，中文不显示
-plt.bar(data['City'].value_counts().index,data['City'].value_counts())  # 选择柱状图，而不是直方图。
-plt.xticks(rotation=90)     # 横坐标旋转90度
+plt.rcParams['font.sans-serif']=['SimHei']    
+plt.bar(data['City'].value_counts().index,data['City'].value_counts())
+plt.xticks(rotation=90)     
 plt.savefig('E:\\ItchatData\\' + friends_info.MyName + 'City_bar.png') ##绘制城市分布情况条形统计图，并保存
-# plt.show()
+
 plt.ion()
-plt.pause(1)  #显示秒数
+plt.pause(1)  
 plt.close()
 print("绘制好友城市分布情况条形统计图完成")
 print(">>>已保存")
-print("\n")
 # Signatures = df_friends.Signature
 # regex1 = re.compile('<span.*?</span>') #匹配表情
 # regex2 = re.compile('\s{2,}') #匹配两个以上占位符
